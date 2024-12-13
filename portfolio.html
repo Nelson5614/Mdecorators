@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - M. Decorators</title>
+    <link href="./output.css" rel="stylesheet">
+    <style>
+        .portfolio-item {
+            transition: all 0.4s ease-in-out;
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .portfolio-item.hidden {
+            transform: scale(0.95);
+            opacity: 0;
+            display: none;
+        }
+
+        .filter-button.active {
+            background-color: var(--corporate-black);
+            color: var(--corporate-gold);
+            border: none;
+        }
+
+        :root {
+            --corporate-black: #1a1a1a;
+            --corporate-gold: #d4af37;
+        }
+    </style>
+</head>
+<body class="bg-white">
+    <header class="bg-corporate-black">
+        <!-- Navigation -->
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-sm border-b border-gray-200 transition-all duration-300" id="navbar" style="position: fixed !important;">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between h-20">
+                    <!-- Logo -->
+                    <a href="index.html" class="flex-shrink-0">
+                        <img src="images/logo.png" alt="M. Decorators" class="h-20 w-28 py-2">
+                    </a>
+
+                    <!-- Desktop Menu -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="index.html" class="text-white hover:text-corporate-gold transition-colors">Home</a>
+                        <a href="about.html" class="text-white hover:text-corporate-gold transition-colors">About</a>
+                        <a href="services.html" class="text-white hover:text-corporate-gold transition-colors">Services</a>
+                        <a href="portfolio.html" class="text-white hover:text-corporate-gold transition-colors">Portfolio</a>
+                        
+                        <a href="contact.html" class="bg-corporate-black text-corporate-gold px-6 py-2 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                            Contact
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button 
+                        class="md:hidden text-white hover:text-corporate-gold transition-colors"
+                        id="mobile-menu-button"
+                        aria-label="Menu"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu -->
+                <div 
+                    class="md:hidden bg-black/95 absolute left-0 right-0 top-full border-b border-gray-200 transition-all duration-300 transform -translate-y-full opacity-0 invisible"
+                    id="mobile-menu"
+                >
+                    <div class="container mx-auto px-4 py-4 space-y-4">
+                        <a href="index.html" class="block text-white hover:text-corporate-gold transition-colors">Home</a>
+                        <a href="about.html" class="block text-white hover:text-corporate-gold transition-colors">About</a>
+                        <a href="services.html" class="block text-white hover:text-corporate-gold transition-colors">Services</a>
+                        <a href="portfolio.html" class="block text-white hover:text-corporate-gold transition-colors">Portfolio</a>
+                    
+                        <a href="contact.html" class="block text-white hover:text-corporate-gold transition-colors">
+                            Contact
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+
+    <div class="h-20"><!-- Spacer to prevent content from hiding under fixed navbar --></div>
+
+    <!-- Hero Section -->
+    <section class="bg-corporate-black min-h-[40vh] flex items-center relative">
+        <div class="absolute inset-0 z-0">
+            <img 
+                src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=1932"
+                alt="Portfolio Header"
+                class="w-full h-full object-cover"
+            />
+            <div class="absolute inset-0 bg-black/75"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-corporate-gold mb-6">
+                    Our Collection
+                </h1>
+                <p class="text-white text-lg md:text-xl leading-relaxed">
+                    Explore our range of premium decor solutions and find the perfect pieces for your space.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <!-- Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button 
+                    class="filter-button active px-6 py-2 rounded-full border border-corporate-black text-corporate-black transition-colors"
+                    data-filter="all"
+                >
+                    All
+                </button>
+                <button 
+                    class="filter-button px-6 py-2 rounded-full border border-corporate-black text-corporate-black transition-colors"
+                    data-filter="cushions"
+                >
+                    Cushions
+                </button>
+                <button 
+                    class="filter-button px-6 py-2 rounded-full border border-corporate-black text-corporate-black transition-colors"
+                    data-filter="blinds"
+                >
+                    Blinds
+                </button>
+                <button 
+                    class="filter-button px-6 py-2 rounded-full border border-corporate-black text-corporate-black transition-colors"
+                    data-filter="curtains"
+                >
+                    Curtains
+                </button>
+                <button 
+                    class="filter-button px-6 py-2 rounded-full border border-corporate-black text-corporate-black transition-colors"
+                    data-filter="bedding"
+                >
+                    Bedding
+                </button>
+            </div>
+
+            <!-- Portfolio Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Cushions -->
+                <div class="portfolio-item bg-white rounded-lg shadow-lg overflow-hidden group" data-category="cushions">
+                    <div class="relative h-64">
+                        <img 
+                            src="images/coushens.jpg"
+                            alt="Luxury Cushions"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                        />
+                    </div>
+                    <div class="p-6 bg-white border-t border-gray-100">
+                        <h3 class="text-xl font-semibold text-corporate-black mb-2">Designer Cushions</h3>
+                        <div class="space-y-2 mb-4">
+                            <p class="text-gray-600">Size: 50×50</p>
+                            <p class="text-xl font-bold text-corporate-gold">M150.00 each</p>
+                        </div>
+                        <a href="contact.html" 
+                           class="inline-block w-full text-center bg-corporate-black text-corporate-gold px-6 py-3 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                            Order Now
+                        </a>
+                    </div>
+                </div>
+
+              <!-- Add these inside your portfolio grid div -->
+
+            <!-- Blinds -->
+            <div class="portfolio-item bg-white rounded-lg shadow-lg overflow-hidden group" data-category="blinds">
+                <div class="relative h-64">
+                    <img 
+                        src="images/blinds.jpg"
+                        alt="Modern Blinds"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div class="p-6 bg-white border-t border-gray-100">
+                    <h3 class="text-xl font-semibold text-corporate-black mb-2">Premium Blinds</h3>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-600">Size: 1.5</p>
+                        <p class="text-xl font-bold text-corporate-gold">M600.00</p>
+                    </div>
+                    <a href="contact.html" 
+                    class="inline-block w-full text-center bg-corporate-black text-corporate-gold px-6 py-3 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                        Order Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Lace Curtains -->
+            <div class="portfolio-item bg-white rounded-lg shadow-lg overflow-hidden group" data-category="curtains">
+                <div class="relative h-64">
+                    <img 
+                        src="images/lace.jpg"
+                        alt="Lace Curtains"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div class="p-6 bg-white border-t border-gray-100">
+                    <h3 class="text-xl font-semibold text-corporate-black mb-2">Lace Curtains</h3>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-600">Including sewing</p>
+                        <p class="text-xl font-bold text-corporate-gold">M100.00 per meter</p>
+                    </div>
+                    <a href="contact.html" 
+                    class="inline-block w-full text-center bg-corporate-black text-corporate-gold px-6 py-3 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                        Order Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tie Backs -->
+            <div class="portfolio-item bg-white rounded-lg shadow-lg overflow-hidden group" data-category="curtains">
+                <div class="relative h-64">
+                    <img 
+                        src="images/tie.jpg"
+                        alt="Curtain Tie Backs"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div class="p-6 bg-white border-t border-gray-100">
+                    <h3 class="text-xl font-semibold text-corporate-black mb-2">Tie Backs</h3>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-600">Elegant design</p>
+                        <p class="text-xl font-bold text-corporate-gold">M100.00 each</p>
+                    </div>
+                    <a href="contact.html" 
+                    class="inline-block w-full text-center bg-corporate-black text-corporate-gold px-6 py-3 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                        Order Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- Double Bed Set -->
+            <div class="portfolio-item bg-white rounded-lg shadow-lg overflow-hidden group" data-category="bedding">
+                <div class="relative h-64">
+                    <img 
+                        src="images/bedding1.jpg"
+                        alt="Double Bed Set"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div class="p-6 bg-white border-t border-gray-100">
+                    <h3 class="text-xl font-semibold text-corporate-black mb-2">Double Bed Set</h3>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-600">Complete set</p>
+                        <p class="text-xl font-bold text-corporate-gold">M2,500.00</p>
+                    </div>
+                    <a href="contact.html" 
+                    class="inline-block w-full text-center bg-corporate-black text-corporate-gold px-6 py-3 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                        Order Now
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2m Rail Curtains -->
+            <div class="portfolio-item bg-white rounded-lg shadow-lg overflow-hidden group" data-category="curtains">
+                <div class="relative h-64">
+                    <img 
+                        src="images/curtain2.jpg"
+                        alt="Rail Curtains"
+                        class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                    />
+                </div>
+                <div class="p-6 bg-white border-t border-gray-100">
+                    <h3 class="text-xl font-semibold text-corporate-black mb-2">Rail Curtains</h3>
+                    <div class="space-y-2 mb-4">
+                        <p class="text-gray-600">2m rail</p>
+                        <p class="text-xl font-bold text-corporate-gold">M1,200.00</p>
+                    </div>
+                    <a href="contact.html" 
+                    class="inline-block w-full text-center bg-corporate-black text-corporate-gold px-6 py-3 rounded-lg hover:bg-corporate-gold hover:text-corporate-black transition-colors">
+                        Order Now
+                    </a>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-corporate-black pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <!-- Footer Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Company Info -->
+                <div class="space-y-6">
+                    <div>
+                        <img src="images/logo.png" alt="M. Decorators" class="h-20 w-28">
+                    </div>
+                    <p class="text-white/60">
+                        Transforming spaces with luxury decor solutions since 2004. Your vision, our expertise.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-corporate-gold hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-corporate-gold hover:text-white transition-colors">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-corporate-gold font-semibold text-lg mb-6">Quick Links</h3>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="text-white/60 hover:text-corporate-gold transition-colors">About Us</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-corporate-gold transition-colors">Our Services</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-corporate-gold transition-colors">Portfolio</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-corporate-gold transition-colors">Testimonials</a></li>
+                        <li><a href="#" class="text-white/60 hover:text-corporate-gold transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-corporate-gold font-semibold text-lg mb-6">Contact Us</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start text-white/60">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-corporate-gold mr-3 flex-shrink-0">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                            </svg>
+                            Katlehong, opposite Puma filling station <br>
+                            Red double storey house
+                        </li>
+                        <li class="flex items-center text-white/60">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-corporate-gold mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+                            </svg>
+                            +266 5878 6976
+                        </li>
+                        <li class="flex items-center text-white/60">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-corporate-gold mr-3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                            </svg>
+                            info@mdecorators.co.ls
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div>
+                    <h3 class="text-corporate-gold font-semibold text-lg mb-6">Newsletter</h3>
+                    <p class="text-white/60 mb-4">
+                        Subscribe to our newsletter for design inspiration and updates.
+                    </p>
+                    <form class="space-y-4">
+                        <input 
+                            type="email" 
+                            placeholder="Your email address" 
+                            class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:border-corporate-gold focus:ring-2 focus:ring-corporate-gold/20 outline-none transition-colors"
+                        >
+                        <button 
+                            type="submit" 
+                            class="w-full bg-corporate-gold text-corporate-black px-6 py-3 rounded-lg hover:bg-white transition-colors font-semibold"
+                        >
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Bottom Bar -->
+            <div class="border-t border-white/10 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <div class="text-white/40 text-sm">
+                        © 2024 M. Decorators. All rights reserved.
+                    </div>
+                    <div class="flex space-x-6 text-sm">
+                        <a href="#" class="text-white/40 hover:text-corporate-gold transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-white/40 hover:text-corporate-gold transition-colors">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="portfolio.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        // Get elements
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const navbar = document.getElementById('navbar');
+        let isMenuOpen = false;
+
+        // Mobile menu toggle
+        mobileMenuButton.addEventListener('click', function() {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                // Open menu
+                mobileMenu.classList.remove('-translate-y-full', 'opacity-0', 'invisible');
+                mobileMenu.classList.add('translate-y-0', 'opacity-100', 'visible');
+            } else {
+                // Close menu
+                mobileMenu.classList.add('-translate-y-full', 'opacity-0', 'invisible');
+                mobileMenu.classList.remove('translate-y-0', 'opacity-100', 'visible');
+            }
+        });
+
+        // Scroll behavior
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > 0) {
+                navbar.classList.add('shadow-lg');
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.98)';
+            } else {
+                navbar.classList.remove('shadow-lg');
+                navbar.style.backgroundColor = 'rgba(0, 0, 0, 0.95)';
+            }
+
+                lastScrollTop = scrollTop;
+            });
+        });
+    
+    </script>
+</body>
+</html>
